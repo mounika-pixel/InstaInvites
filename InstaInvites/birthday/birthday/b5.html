@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Birthday Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7; /* Light gray background for the page */
+            display: flex;
+            justify-content: center; /* Centers the content horizontally */
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .invitation-card {
+            background-image: url("https://tse1.mm.bing.net/th/id/OIP.3qgj44C5sENFA1GsWsTWHgHaKY?w=203&h=284&c=7&r=0&o=5&dpr=1.5&pid=1.7"); /* New Background Image */
+            background-size: cover;
+            background-position: center;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%; /* Circular shape */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .editable {
+            width: 80%; /* Adjust width for better alignment */
+            cursor: text;
+            resize: none;
+            border: none;
+            background: transparent;
+            color: white; /* White text color for better contrast with background */
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .editable:focus {
+            outline: none;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .controls select, .controls input, .controls button {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        .controls button {
+            background-color: #FFCC00; /* Yellow button color */
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .controls button:hover {
+            background-color: #FFB300; /* Darker yellow on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <h2 contenteditable="true" class="editable">Join Us for a Birthday Celebration!</h2>
+        <h1 contenteditable="true" class="editable">[Name]'s Birthday Party</h1>
+        <p contenteditable="true" class="editable">Date: <span>10/22/21</span></p>
+        <p contenteditable="true" class="editable">Time: <span>3:00 PM - 5:00 PM</span></p>
+        <p contenteditable="true" class="editable">Location: <span>Gisella's House</span></p>
+    </div>
+
+    <div class="controls">
+        <label for="font-select">Select Font:</label>
+        <select id="font-select">
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Gill Sans">Gill Sans</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Palatino">Palatino</option>
+            <option value="Futura">Futura</option>
+            <option value="Open Sans">Open Sans</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Garamond">Garamond</option>
+            <option value="Playfair Display">Playfair Display</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Lobster">Lobster</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+        </select>
+
+        <label for="color-input">Select Color:</label>
+        <input type="color" id="color-input" value="#FFFFFF"> <!-- White color for text -->
+        
+        <!-- Buttons to Adjust Font Size -->
+        <button id="increase-font">Increase Font Size</button>
+        <button id="decrease-font">Decrease Font Size</button>
+    </div>
+
+    <script>
+        let activeElement = null;
+
+        document.querySelectorAll('.editable').forEach(element => {
+            element.addEventListener('focus', () => {
+                activeElement = element;
+            });
+        });
+
+        // Change font family
+        document.getElementById('font-select').addEventListener('change', function () {
+            if (activeElement) {
+                activeElement.style.fontFamily = this.value;
+            }
+        });
+
+        // Change font color
+        document.getElementById('color-input').addEventListener('input', function () {
+            if (activeElement) {
+                activeElement.style.color = this.value;
+            }
+        });
+
+        // Increase font size
+        document.getElementById('increase-font').addEventListener('click', function () {
+            if (activeElement) {
+                let currentSize = parseInt(window.getComputedStyle(activeElement).fontSize);
+                activeElement.style.fontSize = (currentSize + 2) + "px"; // Increase font size by 2px
+            }
+        });
+
+        // Decrease font size
+        document.getElementById('decrease-font').addEventListener('click', function () {
+            if (activeElement) {
+                let currentSize = parseInt(window.getComputedStyle(activeElement).fontSize);
+                if (currentSize > 10) { // Prevent font size from becoming too small
+                    activeElement.style.fontSize = (currentSize - 2) + "px"; // Decrease font size by 2px
+                }
+            }
+        });
+    </script>
+</body>
+</html>

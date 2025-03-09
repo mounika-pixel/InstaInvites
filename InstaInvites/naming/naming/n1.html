@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .invitation-card {
+            background-image: url(https://i.pinimg.com/736x/75/3d/21/753d21c2813fd1f79ff20b8b0ae7d461.jpg); /* Replace this with your background image */
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 700px;
+            height: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .editable {
+            width: 80%; /* Adjust width for better alignment */
+            cursor: text;
+            resize: none;
+            border: none;
+            background: transparent;
+            color: rgb(0, 0, 0);
+            font-size: 20px;
+            font-weight: bold;
+            font-family: 'caveat';
+            margin-bottom: 15px;
+        }
+
+        .editable:focus {
+            outline: none;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .controls select, .controls input {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <h2 contenteditable="true" class="editable">PLEASE JOIN US</h2>
+        <h2 contenteditable="true" class="editable">FOR THE NAME CERMONY</h2>
+        <h1 contenteditable="true" class="editable" id="SEETHA">OF OUR BABY GIRL</h1>
+        <p contenteditable="true" class="editable">Date: <span>10/22/21</span></p>
+        <p contenteditable="true" class="editable">Time: <span>3:00 PM - 5:00 PM</span></p>
+        <p contenteditable="true" class="editable">Location: <span>Gisella's House</span></p>
+    </div>
+
+    <div class="controls">
+        <label for="font-select">Select Font:</label>
+        <select id="font-select">
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Lucida Console">Lucida Console</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Calibri">Calibri</option>
+            <option value="Gill Sans">Gill Sans</option>
+            <option value="Helvetica">Helvetica</option>
+            <option value="Palatino">Palatino</option>
+            <option value="Futura">Futura</option>
+            <option value="Open Sans">Open Sans</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Garamond">Garamond</option>
+            <option value="Playfair Display">Playfair Display</option>
+
+            <option value="Roboto">Roboto</option>
+            <option value="Lobster">Lobster</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+        </select>
+
+        <label for="color-input">Select Color:</label>
+        <input type="color" id="color-input" value="#4EB4CD">
+    </div>
+
+    <script>
+        let activeElement = null;
+
+        document.querySelectorAll('.editable').forEach(element => {
+            element.addEventListener('focus', () => {
+                activeElement = element;
+            });
+        });
+
+        document.getElementById('font-select').addEventListener('change', function () {
+            if (activeElement) {
+                activeElement.style.fontFamily = this.value;
+            }
+        });
+
+        document.getElementById('color-input').addEventListener('input', function () {
+            if (activeElement) {
+                activeElement.style.color = this.value;
+            }
+        });
+    </script>
+</body>
+</html>

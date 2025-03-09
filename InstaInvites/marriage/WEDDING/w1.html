@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .invitation-card {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .editable {
+            cursor: text;
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            color: black;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.6); /* Semi-transparent background for better visibility */
+            border-radius: 5px;
+            margin: 10px auto;
+            width: 80%;
+        }
+
+        .editable:focus {
+            outline: none;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .controls select, .controls input, .controls button {
+            padding: 5px;
+        }
+
+        #download {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card" id="invitation-card">
+        <img src="" alt="Background" class="background-image">
+        <h2 contenteditable="true" class="editable">You're Invited!</h2>
+        <h1 contenteditable="true" class="editable">Wedding of Ram and Seetha</h1>
+        <p contenteditable="true" class="editable"><b>Date:</b> 22nd October 2024</p>
+        <p contenteditable="true" class="editable"><b>Time:</b> 3:00 PM - 5:00 PM</p>
+        <p contenteditable="true" class="editable"><b>Location:</b> Gisella's House</p>
+    </div>
+    <button id="download">Download as Image</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById('download').addEventListener('click', function () {
+            const invitationCard = document.getElementById('invitation-card');
+
+            // Convert the invitation to an image
+            html2canvas(invitationCard, {
+                useCORS: true,  // Ensures external resources are loaded
+                backgroundColor: null,  // Keeps the original background transparent if any
+            }).then(canvas => {
+                // Convert the canvas to a data URL (PNG format)
+                const dataURL = canvas.toDataURL('image/png');
+
+                // Create a link element for downloading
+                const link = document.createElement('a');
+                link.href = dataURL;
+                link.download = 'invitation.png';
+                link.click();
+            });
+        });
+    </script>
+</body>
+</html>
